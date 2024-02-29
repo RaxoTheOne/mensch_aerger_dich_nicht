@@ -2,12 +2,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,9 +15,9 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Mensch ärgere dich nicht'),
+          title: Text('Mensch ärgere dich nicht'),
         ),
-        body: const Center(
+        body: Center(
           child: Board(),
         ),
       ),
@@ -28,20 +26,13 @@ class MyApp extends StatelessWidget {
 }
 
 class Board extends StatefulWidget {
-  const Board({super.key});
-
   @override
   _BoardState createState() => _BoardState();
 }
 
 class _BoardState extends State<Board> {
   List<int> positions = List.generate(4, (_) => 0); // Player positions
-  List<Color> colors = [
-    Colors.red,
-    Colors.green,
-    Colors.yellow,
-    Colors.blue
-  ]; // Player colors
+  List<Color> colors = [Colors.red, Colors.green, Colors.yellow, Colors.blue]; // Player colors
   int currentPlayer = 0; // Current player index
 
   void rollDice() {
@@ -62,36 +53,48 @@ class _BoardState extends State<Board> {
       children: <Widget>[
         Text(
           'Spieler ${currentPlayer + 1} ist dran',
-          style: const TextStyle(fontSize: 24.0),
+          style: TextStyle(fontSize: 24.0),
         ),
-        const SizedBox(height: 20.0),
+        SizedBox(height: 20.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             // Display dice
             ElevatedButton(
               onPressed: rollDice,
-              child: const Text('Würfeln'),
+              child: Text('Würfeln'),
             ),
           ],
         ),
-        const SizedBox(height: 20.0),
+        SizedBox(height: 20.0),
         // Display player pieces
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(
-            4,
-            (index) => Container(
-              width: 50.0,
-              height: 50.0,
-              color: colors[index],
-              child: Center(
-                child: Text(
-                  '${positions[index]}',
-                  style: const TextStyle(fontSize: 18.0, color: Colors.white),
+        Container(
+          height: 300,
+          child: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Image.asset(
+                  '/Users/benjamingayda-knop/Coden/Projects/mensch_aerger_dich_nicht/assets/mensch-aergere-dich-nicht-farbig.png',
+                  height: 300,
                 ),
               ),
-            ),
+              for (var i = 0; i < positions.length; i++)
+                Positioned(
+                  bottom: (positions[i] ~/ 10) * 30.0,
+                  left: ((positions[i] % 10) * 30.0) + (i % 2 == 0 ? 10.0 : 0.0),
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: colors[i],
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
       ],
