@@ -32,7 +32,12 @@ class Board extends StatefulWidget {
 
 class _BoardState extends State<Board> {
   List<int> positions = List.generate(4, (_) => 0); // Player positions
-  List<Color> colors = [Colors.red, Colors.green, Colors.yellow, Colors.blue]; // Player colors
+  List<Color> colors = [
+    Colors.red,
+    Colors.green,
+    Colors.yellow,
+    Colors.blue
+  ]; // Player colors
   int currentPlayer = 0; // Current player index
 
   void rollDice() {
@@ -79,12 +84,15 @@ class _BoardState extends State<Board> {
                 child: Image.asset(
                   '/Users/benjamingayda-knop/Coden/Projects/mensch_aerger_dich_nicht/assets/mensch-aergere-dich-nicht-farbig.png',
                   height: 300,
+                  fit: BoxFit.cover,
                 ),
               ),
               for (var i = 0; i < positions.length; i++)
                 Positioned(
-                  bottom: (positions[i] ~/ 10) * 30.0,
-                  left: ((positions[i] % 10) * 30.0) + (i % 2 == 0 ? 10.0 : 0.0),
+                  bottom: (positions[i] ~/ 10) * 75.0 +
+                      20, // adjust for figure size and padding
+                  left: (positions[i] % 10) * 75.0 +
+                      20, // adjust for figure size and padding
                   child: Container(
                     width: 20,
                     height: 20,
