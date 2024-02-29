@@ -36,7 +36,12 @@ class Board extends StatefulWidget {
 
 class _BoardState extends State<Board> {
   List<int> positions = List.generate(4, (_) => 0); // Player positions
-  List<Color> colors = [Colors.red, Colors.green, Colors.yellow, Colors.blue]; // Player colors
+  List<Color> colors = [
+    Colors.red,
+    Colors.green,
+    Colors.yellow,
+    Colors.blue
+  ]; // Player colors
   int currentPlayer = 0; // Current player index
 
   void rollDice() {
